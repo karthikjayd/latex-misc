@@ -1,0 +1,456 @@
+\documentclass[12pt,a4paper,answers]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{physics}
+%\usepackage{braket}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\shadedsolutions
+\usepackage{lmodern}
+\definecolor{SolutionColor}{rgb}{0.9,0.9,1}
+\newcommand{\pderx}[1]{\dfrac{d#1}{d x}}
+\author{Karthik J,\\X Semester M.Sc.Ed.Physics\\(DP150006)}
+\title{\textsc{C2 Assignment}:\\PG.P.10.4. Quantum Mechanics-1}
+\newcommand{\p}{\hat{p}}
+\newcommand{\x}{\hat{x}}
+\renewcommand{\a}{\hat{a}}      
+\newcommand{\ad}{\hat{a}^{\dagger}}
+\newcommand{\N}{\hat{N}}
+\newcommand{\A}{\hat{A}}
+\newcommand{\B}{\hat{B}}
+\newcommand{\C}{\hat{C}}
+\newcommand{\I}{\hat{I}}
+\begin{document}
+	\maketitle
+	\section*{Part 1: Short answer questions}
+	
+	\begin{questions}
+		\setcounter{question}{1}
+		
+		\question	 \textbf{Show that linear momentum operator is Hermitian.}\\
+		
+		\begin{solutionorbox}
+			An operator $ \hat{A} $ is said to be Hermitian if 
+			\begin{equation}\label{eqn:Herm-cond}
+			\braket{\phi}{\hat{A}\psi}  = \braket{\hat{A}\phi}{\psi}
+			\end{equation}
+			
+			The momentum operator $ \hat{p} $, in the position basis, is defined as:
+			\begin{equation}
+			\hat{\vec{p}} = -i \hbar\, \vec{\nabla}
+			\end{equation}
+			In one dimension, this reduces to:
+			\begin{equation}
+			\vec{p} = p_x = -i\hbar \dfrac{\partial}{\partial x}
+			\end{equation}
+			
+			Consider two vectors $ \ket{\psi} $ and $ \ket{\phi} $.
+			\begin{eqnarray*}
+				\braket{\phi}{\hat{p}\psi}  
+				&=& \int_{-\infty}^{\infty} \phi^{*}(x)\, \hat{p} \, \psi(x)\, dx \\
+				&=& \int_{-\infty}^{\infty} \phi^{*}(x)\, \left(-i\hbar \pderx{ }\right) \, \psi(x)\, dx \\
+				&=& \int_{-\infty}^{\infty} \phi^{*}(x)\, \left(-i\hbar \pderx{\psi(x)}\right)\, dx\\ 
+				&=& -i\hbar \int_{-\infty}^{\infty} \phi^{*}(x)\, \left( \pderx{\psi(x)}\right)\, dx\\ 
+			\end{eqnarray*}
+			
+			The integral is now of the form $ u v' $. Hence this can be integrated by parts:
+			\begin{eqnarray*}
+				\braket{\phi}{\hat{p}\psi}  &=& -i\hbar \left( \phi^* (x) \psi(x) |_{-\infty}^{\infty} - \int_{-\infty}^{\infty} \pderx{\phi^* (x)} \psi(x)\, dx \right) 
+			\end{eqnarray*}
+			Now, the wave functions vanish as $ x \rightarrow \pm \infty $. Hence the first term becomes zero.
+			
+			Hence, 
+			\begin{eqnarray*}
+				\braket{\phi}{\hat{p}\psi}  &=&  i\hbar \int_{-\infty}^{\infty} \pderx{\phi^* (x)} \psi(x)\, dx \\
+				&=& \int_{-\infty}^{\infty} \left(i\hbar \pderx{\phi^{*}(x)}\right) \psi(x)\, dx\\
+				&=& \int_{-\infty}^{\infty} \left( -i \hbar \pderx{\phi(x)}  \right)^{*}\psi(x)\, dx\\
+				&=& \int_{-\infty}^{\infty} \left[\hat{p}\, \phi(x)\right]^* \psi(x)\, dx\\
+				&=& \braket{\hat{p}\, \phi}{\psi}
+			\end{eqnarray*}
+			\[ \therefore \boxed{\braket{\phi}{\hat{p}\psi} = \braket{\hat{p}\, \phi}{\psi}} \]
+			%
+			Hence, by equation (\ref{eqn:Herm-cond}), the linear momentum operator $ \hat{p} $ is a Hermitian operator.
+		\end{solutionorbox}
+	
+	\setcounter{question}{3}
+	
+	\question		 \textbf{Show that Hermitian operators have real eigenvalues.}
+	
+	\begin{solutionorbox}
+		Consider a Hermitian operator $ \hat{A} $ which has the eigen-value equation:
+		\begin{equation}\label{eqn:eigen}
+		\hat{A} \ket{\psi} = a\, \ket{\psi}
+		\end{equation}
+		Since these vectors are members of a Hilbert's space, they have finite inner products. Hence, we can take the inner product with $ \ket{\psi} $ in the above equation:
+		\begin{equation} \label{eqn:Herm-real1}
+		\braket{\psi}{\hat{A}\, \psi} = a \braket{\psi}{\psi}
+		\end{equation}
+		Since $ \hat{A} $ is Hermitian, by equation (\ref{eqn:Herm-cond}), 
+		\begin{equation}\label{eqn:Herm-real2}
+		\braket{\psi}{\hat{A}\, \psi} = \braket{\hat{A}\, \psi}{\psi} = a^{*} \braket{\psi}{\psi}
+		\end{equation}
+		Therefore, from equations (\ref{eqn:Herm-real1}) and (\ref{eqn:Herm-real2}), 
+		\[ a = a^* \]
+		This will be true only if $ a $ is a real number, \emph{i.e.,} $ a\,\in\, \mathbb{R} $.
+		
+		$ \therefore $ Hermitian operators have real eigenvalues.
+	\end{solutionorbox}
+	
+	\question		\textbf{Find $ [x, p^2]$ or $[x^2 , p]$ or $[x, p^n ]$ or $[x^n , p]$.}
+	%
+	\begin{solutionorbox}
+		\begin{equation}
+		[x,p] = i\hbar
+		\end{equation}
+		By the properties of commutators:
+		\begin{equation}
+		[A,BC] = B\,[A,C] + [A,B]\,C
+		\end{equation}
+		\begin{dmath*}
+			[x,p^2] = p\, [x,p] + [x,p]\, p = i\hbar\, p + i \hbar\, p = 2i\hbar\, p
+		\end{dmath*}
+		%	\begin{dmath*}
+		%		[x,p^3] = p\, [x,p^2] + [x,p]\, p^2 = 2i\hbar\, p + i\hbar\, p^2
+		%	\end{dmath*}
+		%
+		\begin{dmath*}
+			[x^2,p] = x\, [x,p] + [x,p]\, x = i\hbar\, x + i \hbar\, x = 2i\hbar\, x
+		\end{dmath*}
+		\begin{dmath*}
+			[x^3,p] = [x\,x^2 , p]
+			= x\, [x^2,p] + [x,p]\, x^2 
+			= x(2 i\hbar\, x) + i \hbar\, x^2 
+			= 3i\hbar\, x^2
+		\end{dmath*}
+		\begin{dmath*}
+			[x,p^3] = [x , p\,p^2]
+			= p\, [x,p^2] + [x,p]\, p^2 
+			= p\, (2 i\hbar\, p) + i \hbar\, p^2 
+			= 3i\hbar\, p^2
+		\end{dmath*}
+		So, in general,
+		\begin{eqnarray}
+			\boxed{[x^n,p] = ni\hbar\, x^{n-1}}\\
+			\boxed{[x,p^n] = ni\hbar\, p^{n-1}}
+		\end{eqnarray}
+	\end{solutionorbox}
+\end{questions}
+
+\newpage
+\section*{Long Answer Questions}
+
+\begin{questions}
+	\setcounter{question}{7}
+	\question 	\textbf{Derive the expression for general uncertainty relation for non-commuting operators $ \hat{A} $, $ \hat{B} $ satisfying}
+	\[ [ \hat{A} , \hat{B}]  = i \hat{C} \]
+	
+	\begin{solutionorbox}
+		
+		%et $ \ket{\psi} $ be a normalized state of the system. 
+		%If $ \ket{\psi} $ is an eigenstate of $ \A $, $ \expval{A} $ (which gives the average of all measurements made on the $ \ket{\psi} $ state) turns out to be the eigenvalue itself.
+		
+		%In an eigenstate, the \emph{uncertainty is zero}. 
+		If $ \ket{\psi} $ is an eigenstate of $ \A $, then 
+		\begin{eqnarray}
+			\A \ket{\psi} = \lambda \ket{\psi}% = \expval{A} \ket{\psi}
+		\end{eqnarray}
+		where $ \lambda $ is real.
+		The uncertainty in the measurement of $ \A $ is
+		\[ \Delta A = \sqrt{\expval{ \left( \A - \expval{\A} \right)^2 }} = \sqrt{\expval{\A^2} - \expval{\A}^2 }  \]
+	
+	%	\begin{eqnarray}
+	%		\A \ket{\psi} &=& \ket{\psi'}\\
+	%		\B \ket{\psi} &=& \ket{\psi''}
+	%	\end{eqnarray}
+		
+		%Uncertainty means,  the root of the mean of the squares of the deviation of each value from the mean. 
+		Consider the uncertainty in the measurement of $ \A $ in the eigenstate $ \ket{\psi} $:
+		\begin{dmath}
+			(\Delta A)^2 = \expval{\A^2} - {\expval{\A}}^{2} 
+			= \ev{\A^2}{\psi} -  {\ev{\A}{\psi}}^2
+			= \lambda^2 - \lambda^2
+			= 0
+		\end{dmath}
+		
+		Suppose $ \A $, $ \B $ are non-commuting Hermitian operators satisfying
+		\[ [\A, \B] = i \C \]
+		$ \C $ is Hermitian:
+		\begin{dmath*}
+			\C = -i [\A, \B]
+			= -i \left( \A\B - \B\A \right) 
+		\end{dmath*}
+		 \begin{dmath*}
+		 	\C^{\dagger} = \left[-i \left( \A\B - \B\A \right)\right]^{\dagger}
+		 	= \left( \A\B - \B\A \right)^{\dagger}(-i)^{\dagger}
+		 	= i \left(\A\B - \B\A \right)^{\dagger}
+		 	= i \left[ \left( \A\B \right)^{\dagger} - \left( \B\A \right)^{\dagger}\right]
+		 	= i \left[ \B\A - \A\B \right]
+		 	= -i [\A,\B]
+		 	= \C
+		 \end{dmath*}
+		Suppose the system is in some state $ \ket{\phi} $.
+		Define :
+		\begin{eqnarray}
+			\ket{\chi} &\equiv& \left( \A - \expval{\A} \hat{I} \right)\ket{\phi} \\
+			\ket{\zeta} &\equiv& \left( \B - \expval{\B} \hat{I} \right)\ket{\phi}
+		\end{eqnarray}
+		By Schwarz inequality,
+		\begin{equation}\label{eqn : Schwarz}
+			\braket{\chi} \braket{\zeta} \geq \| \braket{\chi}{\zeta}\|^2 
+		\end{equation}
+		
+		Now consider, 
+		\begin{eqnarray}
+			\nonumber \braket{\chi} &=& \mel**{\chi}{\left( \A-\expval{\A}\I \right)}{\phi}\\
+			&=& \mel**{\phi}{\left( \A-\expval{\A}\I \right)\left( \A-\expval{\A}\I \right)}{\phi} \nonumber\\
+			&=& \mel**{\phi}{\left( \A^2 - 2 \expval{\A}\A + \expval{\A}^2 \right)}{\phi} \nonumber\\
+			&=&	\ev**{\A^2}{\phi} - 2 \expval{\A}^2 + \expval{\A}^2 \nonumber\\
+			&=&	\ev**{\A^2}{\phi} - \expval{\A}^2 \nonumber\\
+			&=& \left( \Delta A \right)^2 \label{eqn : chi^2}
+		\end{eqnarray}
+		Similarly,
+		\begin{equation}\label{eqn : zeta^2}
+			\braket{\zeta} = \left( \Delta B \right)^2
+		\end{equation}
+		Now consider the third term required in equation (\ref{eqn : Schwarz})
+		\begin{eqnarray} \label{eqn : chi-zeta}
+			\braket{\chi}{\zeta} &=& \mel**{\phi}{\left( \A-\expval{\A}\I \right)\left( \B-\expval{\B}\I \right)}{\phi}	\nonumber \\
+			&=&	\mel**{\phi}{\left( \A\B - \ev{\B}\A - \ev{\A}\B + \ev{\A}\ev{\B} \right)}{\phi} 	\nonumber	\\
+			&=&	\ev{\A\B}{\phi} - \ev{\A} \ev{\B}
+		\end{eqnarray}
+		\begin{eqnarray} \label{eqn : ev of AB}
+			\expval{\A\B}{\phi} &=& \mel**{\phi}{\Bigg\{ \left( \dfrac{\A\B - \B\A}{2} \right) + \left( \dfrac{\A\B + \B\A}{2} \right) \Bigg\}}{\phi} \nonumber \\
+			&=& \ev**{\dfrac{i\C}{2}}{\phi}  + \dfrac{1}{2} \ev**{\A\B+\B\A}{\phi}  \nonumber	\\
+			&=& \dfrac{i}{2}\ev**{\C} + \dfrac{1}{2} \ev**{\A\B+\B\A}{\phi} 
+		\end{eqnarray}
+		
+		Substituting equation (\ref{eqn : ev of AB}) in equation (\ref{eqn : chi-zeta}),
+		\begin{eqnarray}
+			\braket{\chi}{\zeta} &=& \dfrac{i}{2}\ev**{\C} + \dfrac{1}{2} \ev**{\A\B+\B\A}{\phi} - \ev{A}\ev{B} \nonumber \\
+			&=& \dfrac{i}{2}\ev**{\C} + \dfrac{1}{2} \ev**{\A\B+\B\A}{\phi} - \ev{A}\ev{B} \braket{\phi} \nonumber \\
+			& = & \dfrac{i}{2}\ev**{\C} + \dfrac{1}{2} \ev**{\A\B+\B\A}{\phi} - \ev{\ev{A}\ev{B}}{\phi} \nonumber \\
+			& = & \dfrac{i}{2}\ev**{\C} + \dfrac{1}{2} \ev**{\Bigg\{ (\A\B+\B\A) - 2\ev{A}\ev{B} \Bigg\}}{\phi} \nonumber 
+		\end{eqnarray}
+		Let $\hat{D} \equiv \left[ (\A\B+\B\A) - 2\ev{A}\ev{B} \right]$. Note that this is also an operator. 
+		
+		Therefore
+	 	\begin{equation}
+	 		\braket{\chi}{\zeta} = \dfrac{i}{2}\ev**{\C} + \dfrac{1}{2} \ev**{\hat{D}}{\phi}
+	 	\end{equation}
+	 	Now,
+	 	\begin{equation}\label{}
+	 		\| \braket{\chi}{\zeta} \|^2 = \dfrac{1}{4} \ev{\C}^2 + \dfrac{1}{4} \ev**{\hat{D}}{\phi} ^2
+	 	\end{equation}
+	 	($ \because |(a+ib)|^2 = (a+ib)(a-ib) = a^2 + b^2 $)
+	 	
+	 	Since all the terms in the above equation are real, 
+	 	\begin{equation}
+	 		\| \braket{\chi}{\zeta} \|^2 \geq \dfrac{1}{4} \ev{\C}^2 
+	 	\end{equation}
+	 	Combining equation(\ref{eqn : Schwarz}) with the above equation,
+	 	\[ \braket{\chi} \braket{\zeta} \geq \| \braket{\chi}{\zeta}\|^2  \geq \dfrac{1}{4} \ev{\C}^2  \]
+	 	Now, using the results from (\ref{eqn : chi^2}) and (\ref{eqn : zeta^2}),
+	 	\begin{equation}
+			(\Delta A)^{2}\, (\Delta B)^{2} \geq \dfrac{1}{4}\expval{\C}^2
+	 	\end{equation}
+	 	\begin{equation}
+	 		\boxed{(\Delta A)\, (\Delta B) \geq \dfrac{1}{2}|\langle\C\rangle|}
+	 	\end{equation}
+	 	The above gives the general uncertainty principle for any two non-commuting Hermitian operators:\\
+	 	\emph{If $\A$ and $ \B $ are two non-commuting Hermitian operators, then the product of the uncertainties in $ \A $ and $ \B $ is always greater than $ \dfrac{|\langle\C\rangle|}{2} $ }.
+	\end{solutionorbox}
+	\newpage
+	\setcounter{question}{11}
+	\question	\textbf{Solve the Schr{\"o}dinger equation for the oscillator using the operator method and obtain the energy eigenvalues.}
+	
+	\begin{solutionorbox}
+		The time-independent Schr{\"o}dinger equation is given by:
+		\begin{equation}\label{eqn: TISE-compact}
+			\hat{H}\psi = E\psi
+		\end{equation}
+		By using the fact that any potential $ V(x) $ is approximately parabolic in the neighbourhood of a local minimum,
+		\[ V(x) = \dfrac{1}{2} k\x^2 = \dfrac{1}{2} m\omega^2 \x^2 \]
+		where $ \omega = \sqrt{k/m} $.\\
+		Substituting the equation for the Hamiltonian operator as 
+		\[ \hat{H} = \dfrac{\p^2}{2m} + V(x) \] 
+		Equation \ref{eqn: TISE-compact} becomes
+		\begin{equation} \label{eqn : first-schro}
+			\dfrac{1}{2m}\left[ \p^2 + \left(m\omega \x\right)^2  \right]\psi(x) = E \psi(x)
+		\end{equation}
+		(\textit{Note that $ p $ and $ x $ are operators.})
+		
+		We define two operators:
+		\begin{eqnarray}
+			\a &=& \dfrac{1}{\sqrt{2\hbar m \omega}} \left( i\p + m\omega\x \right) \label{eqn : destroyer} \\
+			\ad &=& \dfrac{1}{\sqrt{2\hbar m \omega}} \left( -i\p + m\omega\x \right) 	\label{eqn : creator}
+		\end{eqnarray}
+		Now, consider
+		\begin{dmath*}
+			\a \ad 	=	\dfrac{1}{2\hbar m \omega} \left( i\p + m\omega\x \right)\left( -i\p + m\omega\x \right) 
+			= \dfrac{1}{2\hbar m \omega} \lbrace \p^2 + (m\omega \x)^2 - i m \omega \left( \x\p - \p\x \right) \rbrace 
+			= \dfrac{1}{2\hbar m \omega} \lbrace \p^2 + (m\omega \x)^2 - i m \omega \left[\x,\p \right]  \rbrace 
+		\end{dmath*}
+		Now, \[ [x,p] = i\hbar \]
+		\begin{dmath*}
+			\therefore \a \ad 	=	\dfrac{1}{2\hbar m \omega} \lbrace \p^2 + (m\omega \x)^2 + m \omega \hbar  \rbrace 
+		\end{dmath*}
+		Using the equation for Hamiltonian as in equation (\ref{eqn : first-schro}), 
+		\begin{dmath*}
+			\a \ad 	=	\dfrac{1}{\hbar \omega}\left( \hat{H} + \dfrac{\hbar \omega }{2} \right)
+		\end{dmath*}
+		\begin{equation} \label{eqn : a-adagger-H}
+			\therefore \a \ad = \left( \dfrac{\hat{H}}{\hbar \omega} + \dfrac{1}{2} \right)
+		\end{equation}
+		Now, consider the following commutator relations:
+		\begin{dmath}
+			[\a,\ad] \label{eqn : [a-adagger]}
+			= \dfrac{1}{2m\hbar \omega}\left( i\p + m\omega\x , -i\p + m\omega\x \right) 
+			= \dfrac{1}{2m\hbar \omega} \left( im\omega [\p,\x] - im\omega [\x,\p]  \right) 
+			= \dfrac{1}{2m\hbar \omega} \left(2m\hbar \omega\right) 
+			= 1
+		\end{dmath}
+		Now, using the result in (\ref{eqn : [a-adagger]}) and commutator property,
+		\begin{equation}\label{eqn : [adagger-a]}
+			[\ad ,\a] = -1
+		\end{equation}
+		Now, consider 
+		\begin{dmath*}
+			[\ad\a\, ,\, \a] = \ad[\a,\a] + [\ad,\a]\a 
+			= -\a 
+		\end{dmath*}
+		\begin{dmath*}
+			[\ad\a\, ,\, \ad] = \ad[\a,\ad] + [\ad,\ad]\a 
+			= \ad 
+		\end{dmath*}
+		Now, define
+		\begin{equation} \label{eqn : def=N}
+			\hat{N} \equiv \ad \a
+		\end{equation}
+		 Note that $ \hat{N} $ is Hermitian.
+		\begin{tcolorbox}
+			Let us rewrite the commutator relations we have obtained so far, using the definition (\ref{eqn : def=N}) for $\ad\a$,
+			\begin{itemize}
+				\item 		$ [\a\, ,\, \ad] = 1 $
+				\item 		$ [N , \a] = -\a $
+				\item 		$ [N , \ad] = \ad $
+			\end{itemize}
+		\end{tcolorbox}
+	
+		Now, from equation (\ref{eqn : a-adagger-H}), using equations (\ref{eqn : [adagger-a]}) and (\ref{eqn : def=N}),
+		we can write 
+		\begin{equation}\label{eqn : Ham,N}
+			\hat{H} = \hbar\omega \left( \hat{N} + \dfrac{1}{2} \right)
+		\end{equation}
+		$ \hat{N} $ possesses eigen states with real eigenvalues. Let $ \ket{n} $ be an eigenstate of $ \hat{N} $, with eigenvalue $ n $. 
+		\begin{equation}\label{eqn : e-value eqn}
+			\hat{N} \ket{n} = n \ket{n}
+		\end{equation}
+		
+		Let $ \ket{\chi} \equiv \a \ket{n}$. Operating $ \hat{N} $ on $ \ket{\chi} $, we see that:
+		\begin{dmath}
+			\label{eqn : e-value (n-1)}
+			\N \ket{\chi} = \N \a \ket{n} 
+			=	(\a\N - \a) \ket{n} \quad (\text{from commutator relation } [\N,\a])
+			=	\a \N \ket{n} - \a \ket{n}
+			=	n\, \a \ket{n} - \a \ket{n} \quad (\text{from the eigenvalue equation (\ref{eqn : e-value eqn})})
+			=	(n-1) \a \ket{n}
+			=	(n-1) \ket{\chi}
+		\end{dmath}
+		
+		which means, $ \ket{\chi} $ is also an eigen state of $ \N $ with eigenvalue $ (n-1) $. Similarly, $ (\a)^2 \ket{n} $ is also an eigenstate of $ \N $ with eigenvalue $ (n-2) $.
+		
+		Now, let $ \ket{\xi} \equiv \ad \ket{n} $. Similar to equation (\ref{eqn : e-value (n-1)}), 
+		\begin{dmath}
+			\N \ket{\xi} = \N \ad \ket{n} 
+			=	(\ad + \ad \N) \ket{n} \quad (\text{from commutator relation } [\N, \ad])
+			=	\ad \ket{n} + \ad \N \ket{n}
+			=	\ad \ket{n} + n \ad \ket{n} \quad (\text{from the eigenvalue equation (\ref{eqn : e-value eqn})})
+			=	(n+1) \ad \ket{n}
+			=	(n+1) \ket{\xi}
+		\end{dmath}
+		
+		which means, $ \ket{\xi} $ is also an eigen state of $ \N $ with eigenvalue $ (n+1) $.
+		
+		Similarly, $ (\ad)^2 \ket{n} $ is also an eigenstate of $ \N $ with eigenvalue $ (n+2) $.
+		
+		Due to these properties, the operators $ \a $ and $ \ad $ are known as \emph{annihilation} and \emph{creation} operators respectively. This is because, given a particular state, one can apply $ \ad $ and $ \a $ on that state to get new states with higher and lower eigenvalues respectively.
+		
+		\begin{dmath*}
+			\braket{\chi} = \ev**{\ad\a}{n}
+			= \ev**{\N}{n}
+			= n \braket{n}
+			\geq 0
+		\end{dmath*}
+		So $ n $ is non-negative and real.
+		
+		$ \a $ cannot be applied indefinitely on a given state. At some point, on repeated application of $ \a $, a \emph{lowest energy state} is obtained. To satisfy this condition, $ n $ must be an integer. Therefore, $ n $ is a non-negative integer.
+		
+		The lowest energy state, $ \ket{0} $ has eigenvalue zero:
+		\begin{equation}
+			N \ket{0} = 0
+		\end{equation}
+		\[ \implies \a \ket{0} = 0 \]
+		Call $ \ket{0} $ as $ \psi_0(x) $
+		\begin{eqnarray*}
+			\implies \dfrac{1}{\sqrt{2\hbar m \omega}} \left( i\p + m\omega\x \right) \psi_0(x) =& 0\\
+			\dfrac{1}{\sqrt{2\hbar m \omega}} \left( i\left(-i\hbar\dfrac{d}{dx}\right) + m\omega\x \right) \psi_0(x) =& 0\\
+			\implies \dfrac{d\psi_0 (x)}{dx} + \dfrac{m\omega}{\hbar}x\, \psi_0 (x) =& 0\\
+			\text{Solving,}\quad \psi_0 (x) = A\, e^{-\left(\frac{m\omega x^2}{2\hbar}\right)}
+		\end{eqnarray*}
+		To get the constant of integration $ A $, apply the normalization condition:
+		\begin{eqnarray*}
+			\int_{-\infty}^{\infty} \psi_{0}^{*} (x)\, \psi_0 (x)\, dx =& 1\\
+			\implies A^2 =& \sqrt{\dfrac{m\omega}{\pi\hbar}}\\
+			\implies A = & \left(\dfrac{m\omega}{\pi\hbar}\right)^{\frac{1}{4}}
+		\end{eqnarray*}
+		Therefore, the time-independent wave function of the lowest energy state is:
+		\begin{equation}\label{eqn : zero-state}
+			\boxed{\psi_{0}(x) = \left( \dfrac{m\omega}{\pi\hbar} \right)^{\frac{1}{4}} e^{-\left(\frac{m\omega x^2}{2\hbar}\right)}}
+		\end{equation}
+		The time dependent wave function is therefore
+		\begin{dmath}
+			\Psi_0 (x,t) = \psi_{0}(x)\ e^{\frac{-iE_0 t}{\hbar}}
+		\end{dmath}
+		Now, from equation (\ref{eqn : Ham,N}) it is clear that, 
+		\[	[\hat{H} , \N] = 0	\]
+		In other words, the operators $ \hat{H} $ and $ \N $, commute. Since, they commute, the eigenstates of $ \hat{H} $ are also eigenstates of $ \N $ (since they are Hermitian).
+		
+		This means that, since $ \ket{n} , \ket{\chi}$ and $\ket{\xi}$ are eigenstates of $ \N $, they must be eigenstates of $ \hat{H} $ also.
+		
+		\begin{dmath}
+			\hat{H} \ket{n} 
+			= \hbar \omega \left( \N + \dfrac{1}{2} \right) \ket{n}
+			= \hbar \omega \left( \N \ket{n} + \dfrac{1}{2} \ket{n} \right)
+			= \hbar \omega \left( n \ket{n} + \dfrac{1}{2} \ket{n} \right)
+			= \left( n + \dfrac{1}{2} \right) \hbar \omega \ket{n}
+		\end{dmath}
+		
+		Using $ \hat{H} \ket{n} = E_n \ket{n} $, we see that 
+		\begin{equation}\label{eqn : En}
+			\boxed{E_n =  \left( n + \dfrac{1}{2} \right) \hbar \omega}
+		\end{equation}
+		Hence, even when $ n=0 $, the energy is non-zero. In other words, there is no zero energy state.
+		From (\ref{eqn : zero-state}) and (\ref{eqn : En}),
+		\begin{eqnarray}
+			\Psi_0 (x,t) =& \psi_{0}(x)\ e^{\frac{-iE_0 t}{\hbar}} \nonumber\\
+			=&	\left( \dfrac{m\omega}{\pi\hbar} \right)^{\frac{1}{4}} e^{-\left(\frac{m\omega x^2}{2\hbar}\right)} e^{\frac{-i\left(\frac{1}{2}\hbar\omega\right)t}{\hbar}} \nonumber \\
+			=&	\left( \dfrac{m\omega}{\pi\hbar} \right)^{\frac{1}{4}} e^{-\frac{m\omega x^2}{2\hbar}} e^{-\frac{i\omega t}{2}}
+		\end{eqnarray}
+		Any higher state can be obtained by applying the creation operator on the ground state $ \psi_{0} (x) $ and continuing the same procedure discussed above.
+		
+		The general wave function of the harmonic oscillator can be written in terms of the Hermite polynomials as:
+		
+		\begin{equation}
+			\psi_{n} (x) = 	\left( \dfrac{m\omega}{\pi\hbar} \right)^{\frac{1}{4}} \dfrac{1}{\sqrt{2^n n!}} H_n (\xi)\,e^{-\xi^2 / 2}
+		\end{equation}
+		where $ H_n(x) $ are the Hermite polynomials and $ \xi = \sqrt{\dfrac{m\omega}{\hbar}} x $
+	\end{solutionorbox}
+\end{questions}
+	
+\end{document}
