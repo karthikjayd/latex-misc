@@ -1,0 +1,57 @@
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{breqn}
+\definecolor{Blue}{rgb}{0.47, 0.62, 0.8}
+\definecolor{Green}{rgb}{0.01, 0.75, 0.24}
+\definecolor{champagne}{rgb}{0.97, 0.91, 0.81}
+\definecolor{cadmiumgreen}{rgb}{0.0, 0.42, 0.24}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{caribbeangreen}{rgb}{0.0, 0.8, 0.6}
+\definecolor{amber}{rgb}{1.0, 0.75, 0.0}
+%---------------Headers and Footers-----------------------%
+\pagestyle{headandfoot}
+\runningheadrule
+%----------------------------------------%
+
+%\usepackage[top=1in,left=0.5in,right=2.5in,bottom=1in]{geometry}
+
+\usepackage{xpatch} % to make the choices in oneparchoices evenly spaced%
+\xpatchcmd{\oneparchoices}{\penalty -50\hskip 1em plus 1em\relax}{\hfill}{}{}
+\xpatchcmd{\oneparchoices}{\penalty -50\hskip 1em plus 1em\relax}{\hfill}{}{}
+
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{%
+		\node[shape=circle,fill=black!10,draw,inner sep=1.5pt] (char) {#1};}} % to define item labels or numbers inside circles
+	
+%\renewcommand{\choicelabel}{\protect\circled{\thechoice}} % redefining the 'look' of the choice label. 
+
+\usepackage{amsfonts}
+
+\newcommand*{\colorboxed}{}
+\def\colorboxed#1#{%
+	\colorboxedAux{#1}%
+}
+\newcommand*{\colorboxedAux}[3]{%
+	% #1: optional argument for color model
+	% #2: color specification
+	% #3: formula
+	\begingroup
+	\colorlet{cb@saved}{.}%
+	\color#1{#2}%
+	\boxed{%
+		\color{cb@saved}%
+		#3%
+	}%
+	\endgroup
+}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalfont\Large\scshape}
+{\boxed{\thesection}}{1em}{}
+
+\renewcommand{\choicelabel}{\protect\circled{\thechoice}} % redefining the 'look' of the choice label. 
